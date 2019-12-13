@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+            docker: 18
+    pre_build:
+        commands:
+            - $(shell aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+    build:
+        commands:
+            - TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
+            - docker build -t $REPOSITORY:$TAG . --add-host artifactory.tcs.trv.cloud:10.1.10.2
+    post_build:
+        commands:
+            - docker tag $REPOSITORY:$TAG $REPOSITORY:latest
+            - docker push $REPOSITORY
