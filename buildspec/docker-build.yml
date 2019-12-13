@@ -5,7 +5,7 @@ phases:
             docker: 18
     pre_build:
         commands:
-            - $(shell aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
     build:
         commands:
             - TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
