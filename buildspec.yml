@@ -8,4 +8,4 @@ phases:
             - pip install -r requirements-test.txt -t .
     build:
         commands:
-            - PYTHONPATH=./src python -m pytest
+            - PYTHONPATH=./src python -m pytest tests
