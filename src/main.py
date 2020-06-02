@@ -1,8 +1,25 @@
 import json
+import os
+
+import boto3
 import jsonschema
 
-def handler(event, context):
-    with open('schema.json') as f:
-        schema = json.load(f)
+with open('schema.json') as f:
+    SCHEMA = json.load(f)
+    SCHEMA['age']['minimum'] = os.getenv('AGE_RESTRICTION')
 
-    jsonschema.validate(event, schema)
+def check(event):
+    jsonschema.validate(event, SCHEMA)
+
+if __name__ == '__main__':
+    sqs = boto3.resource('sqs')
+    queue = sqs.Queue(os.getenv('QUEUE_URL'))
+
+    for message in queue.receive_messages(WaitTimeInSeconds=10):
+        try:
+            check(json.loads(message))
+            print('Valid')
+        except jsonschema.ValidationError:
+            print('Not valid')
+
+        message.delete()
