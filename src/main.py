@@ -6,7 +6,6 @@ import jsonschema
 
 with open('schema.json') as f:
     SCHEMA = json.load(f)
-    SCHEMA['age']['minimum'] = os.getenv('AGE_RESTRICTION')
 
 def check(event):
     jsonschema.validate(event, SCHEMA)

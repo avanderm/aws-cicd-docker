@@ -9,7 +9,7 @@ class TestMain:
             {
                 'firstName': 'John',
                 'lastName': 'Doe',
-                'age': 21
+                'age': 28
             }
         )
 
@@ -19,6 +19,6 @@ class TestMain:
                 {
                     'firstName': 'John',
                     'lastName': 'Doe',
-                    'age': -1
+                    'age': 27
                 }
             )
