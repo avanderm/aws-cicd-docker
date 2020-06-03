@@ -9,8 +9,8 @@ phases:
     build:
         commands:
             - TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
-            - docker build -t $REPOSITORY:$TAG . --add-host artifactory.tcs.trv.cloud:10.1.10.2
+            - docker build -t $REPOSITORY:$TAG .
+            - docker tag $REPOSITORY:$TAG $REPOSITORY_URI:latest
     post_build:
         commands:
-            - docker tag $REPOSITORY:$TAG $REPOSITORY:latest
-            - docker push $REPOSITORY
+            - docker push $REPOSITORY_URI:latest
