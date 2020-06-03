@@ -23,3 +23,5 @@ if __name__ == '__main__':
                 print('Not valid')
 
             message.delete()
+
+        print("Moving on")
