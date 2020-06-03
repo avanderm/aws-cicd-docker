@@ -16,14 +16,14 @@ if __name__ == '__main__':
 
     print("Starting consumer")
 
-    while True:
-        for message in queue.receive_messages(WaitTimeSeconds=10):
-            try:
-                check(json.loads(message))
-                print('Valid')
-            except jsonschema.ValidationError:
-                print('Not valid')
+    # while True:
+    for message in queue.receive_messages(WaitTimeSeconds=10):
+        try:
+            check(json.loads(message))
+            print('Valid')
+        except jsonschema.ValidationError:
+            print('Not valid')
 
-            message.delete()
+        message.delete()
 
-        print("Moving on")
+    print("Moving on")
