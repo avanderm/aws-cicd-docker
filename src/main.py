@@ -14,6 +14,8 @@ if __name__ == '__main__':
     sqs = boto3.resource('sqs')
     queue = sqs.Queue(os.getenv('QUEUE_URL'))
 
+    print("Starting consumer")
+
     while True:
         for message in queue.receive_messages(WaitTimeSeconds=10):
             try:
