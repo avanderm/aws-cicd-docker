@@ -15,7 +15,7 @@ if __name__ == '__main__':
     queue = sqs.Queue(os.getenv('QUEUE_URL'))
 
     while True:
-        for message in queue.receive_messages(WaitTimeInSeconds=10):
+        for message in queue.receive_messages(WaitTimeSeconds=10):
             try:
                 check(json.loads(message))
                 print('Valid')
