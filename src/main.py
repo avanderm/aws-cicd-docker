@@ -14,11 +14,12 @@ if __name__ == '__main__':
     sqs = boto3.resource('sqs')
     queue = sqs.Queue(os.getenv('QUEUE_URL'))
 
-    for message in queue.receive_messages(WaitTimeInSeconds=10):
-        try:
-            check(json.loads(message))
-            print('Valid')
-        except jsonschema.ValidationError:
-            print('Not valid')
+    while True:
+        for message in queue.receive_messages(WaitTimeInSeconds=10):
+            try:
+                check(json.loads(message))
+                print('Valid')
+            except jsonschema.ValidationError:
+                print('Not valid')
 
-        message.delete()
+            message.delete()
