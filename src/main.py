@@ -29,4 +29,4 @@ if __name__ == "__main__":
             message.delete()
 
         print("Moving on")
-        time.sleep(1)
+        time.sleep(2)
