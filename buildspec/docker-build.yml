@@ -10,7 +10,7 @@ phases:
         commands:
             - TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
             - docker build -t $REPOSITORY:$TAG .
-            - docker tag $REPOSITORY:$TAG $REPOSITORY_URI:v1
+            - docker tag $REPOSITORY:$TAG $REPOSITORY_URI:latest
     post_build:
         commands:
-            - docker push $REPOSITORY_URI:v1
+            - docker push $REPOSITORY_URI:latest
