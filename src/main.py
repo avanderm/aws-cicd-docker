@@ -5,15 +5,16 @@ import time
 import boto3
 import jsonschema
 
-with open('schema.json') as f:
+with open("schema.json") as f:
     SCHEMA = json.load(f)
+    SCHEMA["properties"]["age"]["mininimum"] = int(os.getenv("AGE_RESTRICTION"))
 
 def check(event):
     jsonschema.validate(event, SCHEMA)
 
-if __name__ == '__main__':
-    sqs = boto3.resource('sqs')
-    queue = sqs.Queue(os.getenv('QUEUE_URL'))
+if __name__ == "__main__":
+    sqs = boto3.resource("sqs")
+    queue = sqs.Queue(os.getenv("QUEUE_URL"))
 
     print("Starting consumer")
 
@@ -21,9 +22,9 @@ if __name__ == '__main__':
         for message in queue.receive_messages(WaitTimeSeconds=10):
             try:
                 check(json.loads(message))
-                print('Valid')
+                print("Valid")
             except jsonschema.ValidationError:
-                print('Not valid')
+                print("Not valid")
 
             message.delete()
 
