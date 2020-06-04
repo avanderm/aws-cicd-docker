@@ -8,4 +8,4 @@ phases:
             - pip install -r requirements-test.txt -t .
     build:
         commands:
-            - PYTHONPATH=./src python -m pytest tests
+            - PYTHONPATH=./src AGE_RESTRICTION=28 python -m pytest tests
