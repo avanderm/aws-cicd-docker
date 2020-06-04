@@ -18,7 +18,7 @@ if __name__ == '__main__':
     print("Starting consumer")
 
     while True:
-        for message in queue.receive_messages(WaitTimeSeconds=10):
+        for message in queue.receive_messages():
             try:
                 check(json.loads(message))
                 print('Valid')
@@ -28,4 +28,4 @@ if __name__ == '__main__':
             message.delete()
 
         print("Moving on")
-        time.sleep(1)
+        time.sleep(10)
